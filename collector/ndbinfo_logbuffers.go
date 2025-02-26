@@ -71,14 +71,14 @@ func (ScrapeNdbinfoLogbuffers) Scrape(ctx context.Context, instance *instance, c
 	defer ndbinfoLogbuffersRows.Close()
 
 	var (
-		nodeID, logPart, used, total uint64
-		logType                      string
+		nodeID, logPart, logID, used, total uint64
+		logType                             string
 	)
 
 	// Iterate over the memory settings
 	for ndbinfoLogbuffersRows.Next() {
 		if err := ndbinfoLogbuffersRows.Scan(
-			&nodeID, &logType, &logPart, &total, &used); err != nil {
+			&nodeID, &logType, &logPart, &logID, &total, &used); err != nil {
 			return err
 		}
 		ch <- prometheus.MustNewConstMetric(
