@@ -41,14 +41,16 @@ const ndbinfoLongSignalMemoryQuery = `
 
 var (
 	ndbinfoFreeMemoryDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "free_memory"),
+		prometheus.BuildFQName(namespace, ndbinfo, "free_memory"),
 		"Memory free for each node and memory type in bytes",
 		[]string{"nodeID", "memoryType"}, nil,
 	)
 )
 
 // ScrapeNdbinfoFreeMemory collects for ndbinfo.resources
-type ScrapeNdbinfoFreeMemory struct{}
+type ScrapeNdbinfoFreeMemory struct {
+	collation string
+}
 
 // Name of the Scraper. Should be unique.
 func (ScrapeNdbinfoFreeMemory) Name() string {
@@ -66,8 +68,25 @@ func (ScrapeNdbinfoFreeMemory) Version() float64 {
 }
 
 // Scrape collects data from database connection and sends it over channel as prometheus metric
-func (ScrapeNdbinfoFreeMemory) Scrape(ctx context.Context, instance *instance, ch chan<- prometheus.Metric, logger *slog.Logger) error {
+func (s *ScrapeNdbinfoFreeMemory) Scrape(ctx context.Context, instance *instance, ch chan<- prometheus.Metric, logger *slog.Logger) error {
 	db := instance.getDB()
+
+	// Get the default collation for the database if not already set
+	if s.collation == "" {
+		err := db.QueryRowContext(ctx, "SELECT @@collation_database").Scan(&s.collation)
+		if err != nil {
+			logger.Error("Error getting database collation", "err", err)
+			return err
+		}
+	}
+
+	// Set character set and collation at the session level
+	_, err := db.ExecContext(ctx, "SET SESSION character_set_connection = 'utf8mb4', collation_connection = ?", s.collation)
+	if err != nil {
+		logger.Error("Error setting character set and collation", "err", err)
+		return err
+	}
+
 	ndbinfoFreeMemoryRows, err := db.QueryContext(ctx, ndbinfoFreeMemoryQuery)
 	if err != nil {
 		logger.Error("Error querying ndbinfo.resources", "err", err)

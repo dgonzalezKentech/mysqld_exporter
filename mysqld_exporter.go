@@ -107,7 +107,6 @@ var scrapers = map[collector.Scraper]bool{
 	collector.ScrapeNdbinfoMemoryusage{}:                  true,
 	collector.ScrapeNdbinfoThreadstat{}:                   true,
 	collector.ScrapeNdbinfoCountersSPJ{}:                  true,
-	collector.ScrapeNdbinfoCountersTC{}:                   true,
 	collector.ScrapeNdbinfoClusterOperations{}:            true,
 	collector.ScrapeNdbinfoClusterTransactions{}:          true,
 	collector.ScrapeNdbinfoClusterLocks{}:                 true,
@@ -116,11 +115,12 @@ var scrapers = map[collector.Scraper]bool{
 	collector.ScrapeNdbinfoDiskpagebuffers{}:              true,
 	collector.ScrapeNdbinfoDiskWriteSpeedAggregate{}:      true,
 	collector.ScrapeNdbinfoResources{}:                    true,
-	collector.ScrapeNdbinfoFreeMemory{}:                   true,
+	&collector.ScrapeNdbinfoFreeMemory{}:                  true,
 	collector.ScrapeNdbinfoProcesses{}:                    true,
 	collector.ScrapeNdbinfoTransporters{}:                 true,
 	collector.ScrapeNdbinfoPgmanTimeTrack{}:               true,
 	collector.ScrapeNdbinfoTcTimeTrack{}:                  true,
+	&collector.ScrapeNdbinfoCountersTC{}:                  true,
 }
 
 func filterScrapers(scrapers []collector.Scraper, collectParams []string) []collector.Scraper {

@@ -31,7 +31,7 @@ const ndbinfoClusterTransactionsQuery = `
 
 var (
 	ndbinfoClusterTransactionsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "cluster_transactions"),
+		prometheus.BuildFQName(namespace, ndbinfo, "cluster_transactions"),
 		"Number of transactions for each node and state",
 		[]string{"nodeID", "state"}, nil,
 	)

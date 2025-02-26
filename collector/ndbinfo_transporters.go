@@ -31,37 +31,37 @@ const ndbinfoTransportersQuery = `
 
 var (
 	ndbinfoTransportersBytesSentDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_bytes_sent"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_bytes_sent"),
 		"Number of bytes sent using this connection",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)
 	ndbinfoTransportersBytesReceivedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_bytes_received"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_bytes_received"),
 		"Number of bytes received using this connection",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)
 	ndbinfoTransportersConnectionCountDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_connection_count"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_connection_count"),
 		"Number of times connection established on this transporter",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)
 	ndbinfoTransportersOverloadedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_overloaded"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_overloaded"),
 		"1 if this transporter is currently overloaded, otherwise 0",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)
 	ndbinfoTransportersOverloadedCountDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_overloaded_count"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_overloaded_count"),
 		"Number of times this transporter has entered overload state since connecting",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)
 	ndbinfoTransportersSlowdownDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_slowdown"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_slowdown"),
 		"1 if this transporter is in slowdown state, otherwise 0",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)
 	ndbinfoTransportersSlowdownCountDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "transporters_slowdown_count"),
+		prometheus.BuildFQName(namespace, ndbinfo, "transporters_slowdown_count"),
 		"Number of times this transporter has entered slowdown state since connecting",
 		[]string{"nodeID", "remoteNodeID"}, nil,
 	)

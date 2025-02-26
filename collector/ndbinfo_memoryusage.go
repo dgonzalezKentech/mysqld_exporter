@@ -30,25 +30,25 @@ const ndbinfoMemoryusageQuery = `
 
 var (
 	ndbinfoMemoryusageUsedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "memory_used"),
+		prometheus.BuildFQName(namespace, ndbinfo, "memory_used"),
 		"Memory used for each node and memory type in bytes",
 		[]string{"nodeID", "memoryType"}, nil,
 	)
 
 	ndbinfoMemoryusageTotalDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "memory_total"),
+		prometheus.BuildFQName(namespace, ndbinfo, "memory_total"),
 		"Total memory configured for each node and memory type in bytes",
 		[]string{"nodeID", "memoryType"}, nil,
 	)
 
 	ndbinfoMemoryusagePagesDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "memory_pages"),
+		prometheus.BuildFQName(namespace, ndbinfo, "memory_pages"),
 		"Number of pages used for each node and memory type",
 		[]string{"nodeID", "memoryType"}, nil,
 	)
 
 	ndbinfoMemoryusageTotalPagesDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "memory_total_pages"),
+		prometheus.BuildFQName(namespace, ndbinfo, "memory_total_pages"),
 		"Total number of pages available for each node and memory type",
 		[]string{"nodeID", "memoryType"}, nil,
 	)

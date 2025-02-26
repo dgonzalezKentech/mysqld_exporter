@@ -32,14 +32,16 @@ const ndbinfoCountersTCQuery = `
 
 var (
 	ndbinfoCountersTCDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "tc_counter"),
+		prometheus.BuildFQName(namespace, ndbinfo, "tc_counter"),
 		"Event counters for simple operations",
 		[]string{"nodeID", "counterName"}, nil,
 	)
 )
 
 // ScrapeNdbinfoCountersTC collects for `ndbinfo.counters.tc`
-type ScrapeNdbinfoCountersTC struct{}
+type ScrapeNdbinfoCountersTC struct {
+	collation string
+}
 
 // Name of the Scraper. Should be unique.
 func (ScrapeNdbinfoCountersTC) Name() string {
@@ -57,8 +59,25 @@ func (ScrapeNdbinfoCountersTC) Version() float64 {
 }
 
 // Scrape collects data from database connection and sends it over channel as prometheus metric
-func (ScrapeNdbinfoCountersTC) Scrape(ctx context.Context, instance *instance, ch chan<- prometheus.Metric, logger *slog.Logger) error {
+func (s *ScrapeNdbinfoCountersTC) Scrape(ctx context.Context, instance *instance, ch chan<- prometheus.Metric, logger *slog.Logger) error {
 	db := instance.getDB()
+
+	// Get the default collation for the database if not already set
+	if s.collation == "" {
+		err := db.QueryRowContext(ctx, "SELECT @@collation_database").Scan(&s.collation)
+		if err != nil {
+			logger.Error("Error getting database collation", "err", err)
+			return err
+		}
+	}
+
+	// Set character set and collation at the session level
+	_, err := db.ExecContext(ctx, "SET SESSION character_set_connection = 'utf8mb4', collation_connection = ?", s.collation)
+	if err != nil {
+		logger.Error("Error setting character set and collation", "err", err)
+		return err
+	}
+
 	ndbinfoCountersTCRows, err := db.QueryContext(ctx, ndbinfoCountersTCQuery)
 	if err != nil {
 		logger.Error("Error querying ndbinfo.counters.tc", "err", err)

@@ -31,12 +31,12 @@ const ndbinfoClusterLocksQuery = `
 
 var (
 	ndbinfoClusterLocksCountDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "cluster_locks_count"),
+		prometheus.BuildFQName(namespace, ndbinfo, "cluster_locks_count"),
 		"Number of locks for each node, mode, state and operation type",
 		[]string{"nodeID", "mode", "state", "operationType"}, nil,
 	)
 	ndbinfoClusterLocksAvgDurationDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "cluster_locks_avg_duration"),
+		prometheus.BuildFQName(namespace, ndbinfo, "cluster_locks_avg_duration"),
 		"Lock state average duraton for each node, mode, state and operation type",
 		[]string{"nodeID", "mode", "state", "operationType"}, nil,
 	)

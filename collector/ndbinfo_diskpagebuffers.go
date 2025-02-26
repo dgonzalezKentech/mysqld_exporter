@@ -33,37 +33,37 @@ const ndbinfoDiskpagebuffersQuery = `
 
 var (
 	ndbinfoDiskpagebuffersPagesWrittenDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_pages_written"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_pages_written"),
 		"Number of pages written to disk for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskpagebuffersPagesWrittenLcpDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_pages_written_lcp"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_pages_written_lcp"),
 		"Number of pages written by local checkpoints for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskpagebuffersPagesReadDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_pages_read"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_pages_read"),
 		"Number of pages read from disk for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskpagebuffersLogWaitsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_log_waits"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_log_waits"),
 		"Number of page writes waiting for log to be written to disk for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskpagebuffersDirectDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_direct_return"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_direct_return"),
 		"Number of requests for pages that were available in buffer for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskpagebuffersQueueDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_wait_queue"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_wait_queue"),
 		"Number of requests that had to wait for pages to become available in buffer for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskpagebuffersIODesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "diskpagebuffer_wait_io"),
+		prometheus.BuildFQName(namespace, ndbinfo, "diskpagebuffer_wait_io"),
 		"Number of requests that had to be read from disk for each node, block and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)

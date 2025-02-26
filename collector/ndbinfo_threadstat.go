@@ -31,61 +31,61 @@ const ndbinfoThreadstatQuery = `
 
 var (
 	ndbinfoThreadstatLoopsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_loop"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_loop"),
 		"Number of lops in the main loop for each thread on each node - ms",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatExecDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_exec"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_exec"),
 		"Number of signals executed for each thread on each node - ms",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatWaitDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_wait"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_wait"),
 		"Number of times waiting for additional input for each thread on each node - ms",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatOSTimeDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_os_time"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_os_time"),
 		"OS time for each thread on each node - ms",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatOSUserTimeDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_user_time"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_user_time"),
 		"OS user time for each thread on each node - µs",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatOSSystemTimeDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_system_time"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_system_time"),
 		"OS system time for each thread on each node - µs",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatSoftPageFaultsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_soft_pagfault"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_soft_pagfault"),
 		"Soft page faults for each thread on each node",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatHardPageFaultsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_hard_pagfault"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_hard_pagfault"),
 		"Hard page faults for each thread on each node",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatVoluntaryCtxSwitchDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_ctx_switch_voluntary"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_ctx_switch_voluntary"),
 		"Voluntary context switches for each thread on each node",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)
 
 	ndbinfoThreadstatInvoluntaryCtxSwitchDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "threadstat_ctx_switch_involuntary"),
+		prometheus.BuildFQName(namespace, ndbinfo, "threadstat_ctx_switch_involuntary"),
 		"Involuntary context switches for each thread on each node",
 		[]string{"nodeID", "threadNO", "threadName"}, nil,
 	)

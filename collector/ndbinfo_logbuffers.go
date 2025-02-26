@@ -24,19 +24,19 @@ import (
 )
 
 const ndbinfoLogbuffersQuery = `
-	SELECT node_id, log_type, log_part, total, used 
+	SELECT node_id, log_type, log_part, log_id, total, used 
 	FROM ndbinfo.logbuffers;
 	`
 
 var (
 	ndbinfoLogbuffersUsedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "logbuffers_used"),
+		prometheus.BuildFQName(namespace, ndbinfo, "logbuffers_used"),
 		"Buffer space used by each log",
 		[]string{"nodeID", "logType", "logPart"}, nil,
 	)
 
 	ndbinfoLogbuffersTotalDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "logbuffers_total"),
+		prometheus.BuildFQName(namespace, ndbinfo, "logbuffers_total"),
 		"Total buffer space available for each log",
 		[]string{"nodeID", "logType", "logPart"}, nil,
 	)

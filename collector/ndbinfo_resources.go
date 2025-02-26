@@ -36,13 +36,13 @@ const ndbinfoLongSignalQuery = `
 
 var (
 	ndbinfoResourcesReservedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "memory_resource_reserved"),
+		prometheus.BuildFQName(namespace, ndbinfo, "memory_resource_reserved"),
 		"Memory used for each node and memory type in bytes",
 		[]string{"nodeID", "memoryType"}, nil,
 	)
 
 	ndbinfoResourcesUsedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "memory_resource_used"),
+		prometheus.BuildFQName(namespace, ndbinfo, "memory_resource_used"),
 		"Total memory configured for each node and memory type in bytes",
 		[]string{"nodeID", "memoryType"}, nil,
 	)

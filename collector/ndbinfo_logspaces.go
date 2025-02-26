@@ -30,13 +30,13 @@ const ndbinfoLogspacesQuery = `
 
 var (
 	ndbinfoLogspacesUsedDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "logspaces_used"),
+		prometheus.BuildFQName(namespace, ndbinfo, "logspaces_used"),
 		"Space used by each log",
 		[]string{"nodeID", "logType", "logPart"}, nil,
 	)
 
 	ndbinfoLogspacesTotalDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "logspaces_total"),
+		prometheus.BuildFQName(namespace, ndbinfo, "logspaces_total"),
 		"Total space available for each log",
 		[]string{"nodeID", "logType", "logPart"}, nil,
 	)

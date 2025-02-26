@@ -31,7 +31,7 @@ const ndbinfoClusterOperationsQuery = `
 
 var (
 	ndbinfoClusterOperationsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "cluster_operations"),
+		prometheus.BuildFQName(namespace, ndbinfo, "cluster_operations"),
 		"Number of operations for each node, operation type and state",
 		[]string{"nodeID", "operationType", "state"}, nil,
 	)

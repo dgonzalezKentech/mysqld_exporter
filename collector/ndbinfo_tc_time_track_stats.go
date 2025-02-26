@@ -32,27 +32,27 @@ const ndbinfoTcTimeTrackQuery = `
 
 var (
 	ndbinfoTcTimeTrackScansDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "tc_time_track_scans"),
+		prometheus.BuildFQName(namespace, ndbinfo, "tc_time_track_scans"),
 		"Time track of scans",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoTcTimeTrackTransactionsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "tc_time_track_transactions"),
+		prometheus.BuildFQName(namespace, ndbinfo, "tc_time_track_transactions"),
 		"Time track of transactions",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoTcTimeTrackReadKeyDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "tc_time_track_read_key"),
+		prometheus.BuildFQName(namespace, ndbinfo, "tc_time_track_read_key"),
 		"Time track of read key operations",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoTcTimeTrackWriteKeyDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "tc_time_track_write_key"),
+		prometheus.BuildFQName(namespace, ndbinfo, "tc_time_track_write_key"),
 		"Time track of write key operations",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoTcTimeTrackIndexKeyDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "tc_time_track_index_key"),
+		prometheus.BuildFQName(namespace, ndbinfo, "tc_time_track_index_key"),
 		"Time track of index key operations",
 		[]string{"nodeID", "upperBound"}, nil,
 	)

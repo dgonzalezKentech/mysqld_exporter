@@ -32,7 +32,7 @@ const ndbinfoCountersSPJQuery = `
 
 var (
 	ndbinfoCountersSPJDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "spj_counter"),
+		prometheus.BuildFQName(namespace, ndbinfo, "spj_counter"),
 		"Event counters for simple operations",
 		[]string{"nodeID", "counterName"}, nil,
 	)

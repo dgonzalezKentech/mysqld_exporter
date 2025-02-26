@@ -34,22 +34,22 @@ const ndbinfoDiskWriteSpeedAggregateQuery = `
 
 var (
 	ndbinfoDiskWriteSpeedAggregateLcpDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "disk_write_speed_lcp"),
+		prometheus.BuildFQName(namespace, ndbinfo, "disk_write_speed_lcp"),
 		"Number of bytes written to disk by backup and LCP processes per second, averaged over the last 10 seconds for each node and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskWriteSpeedAggregateRedoDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "disk_write_speed_redo"),
+		prometheus.BuildFQName(namespace, ndbinfo, "disk_write_speed_redo"),
 		"Number of bytes written to REDO log processes per second, averaged over the last 10 seconds for each node and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskWriteSpeedAggregateIOSlowdownDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "disk_write_speed_io_slowdown"),
+		prometheus.BuildFQName(namespace, ndbinfo, "disk_write_speed_io_slowdown"),
 		"Number of seconds since last node start that disk writes were slowed due to REDO log I/O lag for each node and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)
 	ndbinfoDiskWriteSpeedAggregateCPUSlowdownDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "disk_write_speed_cpu_slowdown"),
+		prometheus.BuildFQName(namespace, ndbinfo, "disk_write_speed_cpu_slowdown"),
 		"Number of seconds since last node start that disk writes were slowed due to high CPU usage for each node and thread",
 		[]string{"nodeID", "threadNO"}, nil,
 	)

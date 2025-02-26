@@ -30,7 +30,7 @@ const ndbinfoProcessesQuery = `
 
 var (
 	ndbinfoProcessesCountDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "processes"),
+		prometheus.BuildFQName(namespace, ndbinfo, "processes"),
 		"Number of processes for each node type and process name",
 		[]string{"nodeType", "processName"}, nil,
 	)

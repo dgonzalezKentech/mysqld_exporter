@@ -32,22 +32,22 @@ const ndbinfoPgmanTimeTrackQuery = `
 
 var (
 	ndbinfoPgmanTimeTrackPageReadsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "pgman_time_track_page_reads"),
+		prometheus.BuildFQName(namespace, ndbinfo, "pgman_time_track_page_reads"),
 		"Time track of page reads",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoPgmanTimeTrackPageWritesDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "pgman_time_track_page_writes"),
+		prometheus.BuildFQName(namespace, ndbinfo, "pgman_time_track_page_writes"),
 		"Time track of page writes",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoPgmanTimeTrackLogWaitsDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "pgman_time_track_log_waits"),
+		prometheus.BuildFQName(namespace, ndbinfo, "pgman_time_track_log_waits"),
 		"Time track of wait for UNDO log writes",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
 	ndbinfoPgmanTimeTrackGetPageDesc = prometheus.NewDesc(
-		prometheus.BuildFQName("ndb", ndbinfo, "pgman_time_track_get_page"),
+		prometheus.BuildFQName(namespace, ndbinfo, "pgman_time_track_get_page"),
 		"Time track of get_page operation",
 		[]string{"nodeID", "upperBound"}, nil,
 	)
