@@ -78,7 +78,15 @@ func (s *ScrapeNdbinfoCountersTC) Scrape(ctx context.Context, instance *instance
 		return err
 	}
 
-	ndbinfoCountersTCRows, err := db.QueryContext(ctx, ndbinfoCountersTCQuery)
+	// Explicitly set collation for the query
+	ndbinfoCountersTCQueryWithCollation := `
+		SELECT node_id, counter_name, sum(val)
+		FROM ndbinfo.counters
+		WHERE block_name = "DBTC" COLLATE ` + s.collation + ` AND counter_name COLLATE ` + s.collation + ` != "ATTRINFO"
+		GROUP BY node_id, counter_name
+	`
+
+	ndbinfoCountersTCRows, err := db.QueryContext(ctx, ndbinfoCountersTCQueryWithCollation)
 	if err != nil {
 		logger.Error("Error querying ndbinfo.counters.tc", "err", err)
 		return err

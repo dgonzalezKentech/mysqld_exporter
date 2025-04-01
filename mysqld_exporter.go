@@ -121,6 +121,7 @@ var scrapers = map[collector.Scraper]bool{
 	collector.ScrapeNdbinfoPgmanTimeTrack{}:               true,
 	collector.ScrapeNdbinfoTcTimeTrack{}:                  true,
 	&collector.ScrapeNdbinfoCountersTC{}:                  true,
+	collector.ScrapeNdbinfoOperationsPerFragment{}:        true, // New scraper added
 }
 
 func filterScrapers(scrapers []collector.Scraper, collectParams []string) []collector.Scraper {

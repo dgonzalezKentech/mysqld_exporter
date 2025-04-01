@@ -32,13 +32,13 @@ var (
 	ndbinfoLogbuffersUsedDesc = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, ndbinfo, "logbuffers_used"),
 		"Buffer space used by each log",
-		[]string{"nodeID", "logType", "logPart"}, nil,
+		[]string{"nodeID", "logType", "logPart", "log_id"}, nil,
 	)
 
 	ndbinfoLogbuffersTotalDesc = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, ndbinfo, "logbuffers_total"),
 		"Total buffer space available for each log",
-		[]string{"nodeID", "logType", "logPart"}, nil,
+		[]string{"nodeID", "logType", "logPart", "log_id"}, nil,
 	)
 )
 
@@ -83,11 +83,11 @@ func (ScrapeNdbinfoLogbuffers) Scrape(ctx context.Context, instance *instance, c
 		}
 		ch <- prometheus.MustNewConstMetric(
 			ndbinfoLogbuffersUsedDesc, prometheus.GaugeValue, float64(used),
-			strconv.FormatUint(nodeID, 10), logType, strconv.FormatUint(logPart, 10))
+			strconv.FormatUint(nodeID, 10), logType, strconv.FormatUint(logPart, 10), strconv.FormatUint(logID, 10))
 
 		ch <- prometheus.MustNewConstMetric(
 			ndbinfoLogbuffersTotalDesc, prometheus.GaugeValue, float64(total),
-			strconv.FormatUint(nodeID, 10), logType, strconv.FormatUint(logPart, 10))
+			strconv.FormatUint(nodeID, 10), logType, strconv.FormatUint(logPart, 10), strconv.FormatUint(logID, 10))
 	}
 	return nil
 }

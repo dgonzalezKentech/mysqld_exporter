@@ -87,7 +87,18 @@ func (s *ScrapeNdbinfoFreeMemory) Scrape(ctx context.Context, instance *instance
 		return err
 	}
 
-	ndbinfoFreeMemoryRows, err := db.QueryContext(ctx, ndbinfoFreeMemoryQuery)
+	// Explicitly set collation for the query
+	ndbinfoFreeMemoryQueryWithCollation := `
+		SELECT node_id, resource_name, reserved, used
+		FROM ndbinfo.resources WHERE
+			resource_name COLLATE ` + s.collation + ` = "TRANSACTION_MEMORY" OR
+			resource_name COLLATE ` + s.collation + ` = "JOBBUFFER" OR
+			resource_name COLLATE ` + s.collation + ` = "DATA_MEMORY" OR
+			resource_name COLLATE ` + s.collation + ` = "TOTAL_GLOBAL_MEMORY" OR
+			resource_name COLLATE ` + s.collation + ` = "SCHEMA_TRANS_MEMORY";
+	`
+
+	ndbinfoFreeMemoryRows, err := db.QueryContext(ctx, ndbinfoFreeMemoryQueryWithCollation)
 	if err != nil {
 		logger.Error("Error querying ndbinfo.resources", "err", err)
 		return err
