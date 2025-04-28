@@ -178,14 +178,14 @@ func (ScrapeNdbinfoOperationsPerFragment) Version() float64 {
 // Scrape collects data from database connection and sends it over channel as prometheus metric.
 func (ScrapeNdbinfoOperationsPerFragment) Scrape(ctx context.Context, instance *instance, ch chan<- prometheus.Metric, logger *slog.Logger) error {
 	logger.Debug("Starting Scrape for ndbinfo.operations_per_fragment")
-	logger.Debug("Establishing database connection")
+	//logger.Debug("Establishing database connection")
 	db := instance.getDB()
 	if db == nil {
 		logger.Error("Database connection is nil")
 		return fmt.Errorf("database connection is nil")
 	}
 
-	logger.Debug("Executing query", "query", ndbinfoOperationsPerFragmentQuery)
+	//logger.Debug("Executing query", "query", ndbinfoOperationsPerFragmentQuery)
 	rows, err := db.QueryContext(ctx, ndbinfoOperationsPerFragmentQuery)
 	if err != nil {
 		logger.Error("Error querying ndbinfo.operations_per_fragment", "err", err)
@@ -222,6 +222,15 @@ func (ScrapeNdbinfoOperationsPerFragment) Scrape(ctx context.Context, instance *
 
 		ch <- prometheus.MustNewConstMetric(
 			ndbinfoTotalKeyReadsDesc, prometheus.GaugeValue, totKeyReads, nodeID,
+		)
+		ch <- prometheus.MustNewConstMetric(
+			ndbinfoTotalKeyWritesDesc, prometheus.GaugeValue, totKeyWrites, nodeID,
+		)
+		ch <- prometheus.MustNewConstMetric(
+			ndbinfoTotalKeyUpdatesDesc, prometheus.GaugeValue, totKeyUpdates, nodeID,
+		)
+		ch <- prometheus.MustNewConstMetric(
+			ndbinfoTotalKeyDeletesDesc, prometheus.GaugeValue, totKeyDeletes, nodeID,
 		)
 		ch <- prometheus.MustNewConstMetric(
 			ndbinfoTotalKeyRefsDesc, prometheus.GaugeValue, totKeyRefs, nodeID,
