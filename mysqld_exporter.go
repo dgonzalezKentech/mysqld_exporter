@@ -96,9 +96,6 @@ var scrapers = map[collector.Scraper]bool{
 	collector.ScrapeClientStat{}:                          false,
 	collector.ScrapeTableStat{}:                           false,
 	collector.ScrapeSchemaStat{}:                          false,
-	collector.ScrapeInnodbCmp{}:                           true,
-	collector.ScrapeInnodbCmpMem{}:                        true,
-	collector.ScrapeQueryResponseTime{}:                   true,
 	collector.ScrapeEngineTokudbStatus{}:                  false,
 	collector.ScrapeEngineInnodbStatus{}:                  false,
 	collector.ScrapeHeartbeat{}:                           false,
@@ -106,22 +103,25 @@ var scrapers = map[collector.Scraper]bool{
 	collector.ScrapeReplicaHost{}:                         false,
 	collector.ScrapeNdbinfoMemoryusage{}:                  true,
 	collector.ScrapeNdbinfoThreadstat{}:                   true,
-	collector.ScrapeNdbinfoCountersSPJ{}:                  true,
 	collector.ScrapeNdbinfoClusterOperations{}:            true,
 	collector.ScrapeNdbinfoClusterTransactions{}:          true,
+	collector.ScrapeNdbinfoOperationsPerFragment{}:        true,
+	collector.ScrapeNdbinfoTransporters{}:                 true,
+	collector.ScrapeNdbinfoCountersSPJ{}:                  true,
 	collector.ScrapeNdbinfoClusterLocks{}:                 true,
 	collector.ScrapeNdbinfoLogbuffers{}:                   true,
-	collector.ScrapeNdbinfoLogspaces{}:                    true,
 	collector.ScrapeNdbinfoDiskpagebuffers{}:              true,
 	collector.ScrapeNdbinfoDiskWriteSpeedAggregate{}:      true,
 	collector.ScrapeNdbinfoResources{}:                    true,
 	&collector.ScrapeNdbinfoFreeMemory{}:                  true,
 	collector.ScrapeNdbinfoProcesses{}:                    true,
-	collector.ScrapeNdbinfoTransporters{}:                 true,
 	collector.ScrapeNdbinfoPgmanTimeTrack{}:               true,
 	collector.ScrapeNdbinfoTcTimeTrack{}:                  true,
 	&collector.ScrapeNdbinfoCountersTC{}:                  true,
-	collector.ScrapeNdbinfoOperationsPerFragment{}:        true, // New scraper added
+	collector.ScrapeNdbinfoLogspaces{}:                    true,
+	collector.ScrapeInnodbCmp{}:                           false,
+	collector.ScrapeInnodbCmpMem{}:                        false,
+	collector.ScrapeQueryResponseTime{}:                   false,
 }
 
 func filterScrapers(scrapers []collector.Scraper, collectParams []string) []collector.Scraper {
@@ -254,7 +254,7 @@ func main() {
 	kingpin.Parse()
 	logger := promslog.New(promslogConfig)
 
-	logger.Info("Starting mysqld_exporter", "version", version.Info())
+	logger.Info("Starting mysqld_exporter (KENTECH)", "version", version.Info())
 	logger.Info("Build context", "build_context", version.BuildContext())
 
 	var err error

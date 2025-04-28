@@ -73,6 +73,8 @@ func (ScrapeNdbinfoOperationsPerFragment) Scrape(ctx context.Context, instance *
 		operationType                                                   string
 	)
 
+	logger.Debug("Scraping ndbinfo.operations_per_fragment", "query", ndbinfoOperationsPerFragmentQuery)
+
 	for rows.Next() {
 		if err := rows.Scan(&totalKeyReads, &totalKeyWrites, &totalKeyUpdates, &totalKeyDeletes, &operationType); err != nil {
 			return err
