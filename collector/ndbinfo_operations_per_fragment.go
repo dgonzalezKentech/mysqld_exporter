@@ -172,7 +172,7 @@ func (ScrapeNdbinfoOperationsPerFragment) Help() string {
 
 // Version of MySQL from which scraper is available.
 func (ScrapeNdbinfoOperationsPerFragment) Version() float64 {
-	return 5.7
+	return 5.6
 }
 
 // Scrape collects data from database connection and sends it over channel as prometheus metric.
