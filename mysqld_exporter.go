@@ -143,6 +143,7 @@ func filterScrapers(scrapers []collector.Scraper, collectParams []string) []coll
 	if len(filteredScrapers) == 0 {
 		return scrapers
 	}
+
 	return filteredScrapers
 }
 
@@ -215,6 +216,12 @@ func newHandler(scrapers []collector.Scraper, logger *slog.Logger) http.HandlerF
 
 		filteredScrapers := filterScrapers(scrapers, collect)
 
+		scraperNames := []string{}
+		for _, scraper := range filteredScrapers {
+			scraperNames = append(scraperNames, scraper.Name())
+		}
+		logger.Debug("Filtering scrapers", "scrapers", scraperNames)
+
 		registry := prometheus.NewRegistry()
 
 		registry.MustRegister(collector.New(ctx, dsn, filteredScrapers, logger))
@@ -256,6 +263,7 @@ func main() {
 
 	logger.Info("Starting mysqld_exporter (KENTECH)", "version", version.Info())
 	logger.Info("Build context", "build_context", version.BuildContext())
+	logger.Debug("Debug Enabled Kentech")
 
 	var err error
 	if err = c.ReloadConfig(*configMycnf, *mysqldAddress, *mysqldUser, *tlsInsecureSkipVerify, logger); err != nil {
